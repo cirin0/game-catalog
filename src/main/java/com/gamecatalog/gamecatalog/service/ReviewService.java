@@ -1,0 +1,69 @@
+package com.gamecatalog.gamecatalog.service;
+
+import com.gamecatalog.gamecatalog.mapper.ReviewMapper;
+import com.gamecatalog.gamecatalog.model.dto.ReviewDto;
+import com.gamecatalog.gamecatalog.model.entity.Game;
+import com.gamecatalog.gamecatalog.model.entity.Review;
+import com.gamecatalog.gamecatalog.repository.GameRepository;
+import com.gamecatalog.gamecatalog.repository.ReviewRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ReviewService {
+  private final ReviewRepository reviewRepository;
+  private final GameRepository gameRepository;
+  private final ReviewMapper reviewMapper;
+
+
+  private Page<ReviewDto> getAllReviews(Pageable pageable) {
+    return reviewRepository.findAll(pageable)
+        .map(reviewMapper::toDto);
+  }
+
+  private ReviewDto getReviewById(Long id) {
+    Review review = reviewRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Review not found"));
+    return reviewMapper.toDto(review);
+  }
+
+  @Transactional
+  public ReviewDto createReview(Long gameId, ReviewDto reviewDto) {
+    Game game = gameRepository.findById(gameId)
+        .orElseThrow(() -> new RuntimeException("Game not found"));
+    Review review = reviewMapper.toEntity(reviewDto);
+    review.setGame(game);
+    Review savedReview = reviewRepository.save(review);
+    updateGameRating(game);
+    return reviewMapper.toDto(savedReview);
+  }
+
+  @Transactional
+  public ReviewDto updateReview(Long id, ReviewDto reviewDto) {
+    Review review = reviewRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Review not found"));
+    Review updatedReview = reviewMapper.partialUpdate(reviewDto, review);
+    Review savedReview = reviewRepository.save(updatedReview);
+    updateGameRating(savedReview.getGame());
+    return reviewMapper.toDto(savedReview);
+  }
+
+  @Transactional
+  public void deleteReview(Long id) {
+    Review review = reviewRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Review not found"));
+    Game game = review.getGame();
+    reviewRepository.deleteById(id);
+    updateGameRating(game);
+  }
+
+  private void updateGameRating(Game game) {
+    Double averageRating = reviewRepository.calculateAverageRatingForGame(game.getId());
+    game.setRating(averageRating != null ? averageRating : 0.0);
+    gameRepository.save(game);
+  }
+}
