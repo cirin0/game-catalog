@@ -33,6 +33,7 @@ public class Game {
   private String imageUrl;
 
   @Column(nullable = false)
+  @Builder.Default
   private Double rating = 0.0;
 
   @ManyToOne(fetch = FetchType.LAZY)

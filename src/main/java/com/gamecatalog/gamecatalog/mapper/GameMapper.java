@@ -10,10 +10,12 @@ import java.util.List;
 public interface GameMapper {
   Game toEntity(GameDto gameDto);
 
+  @Mapping(target = "categoryId", source = "category.id")
+  @Mapping(target = "categoryName", source = "category.name")
   GameDto toDto(Game game);
 
   List<GameDto> toDtoList(List<Game> games);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Game partialUpdate(GameDto gameDto, @MappingTarget Game game);
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Game
+  partialUpdate(GameDto gameDto, @MappingTarget Game game);
 }

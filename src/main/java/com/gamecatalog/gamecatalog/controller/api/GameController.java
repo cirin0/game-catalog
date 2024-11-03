@@ -25,16 +25,6 @@ public class GameController {
     return ResponseEntity.ok(gameService.getGameById(id));
   }
 
-//  @GetMapping("/search")
-//  public ResponseEntity<Page<GameDto>> searchGames(
-//      @RequestParam(required = false) String query,
-//      @RequestParam(required = false) Long category,
-//      @RequestParam(required = false) Integer releaseYear,
-//      @RequestParam(required = false) String rating,
-//      Pageable pageable){
-//    return ResponseEntity.ok(gameService.searchGames(query, category, releaseYear, rating, pageable));
-//  }
-
   @PostMapping
   public ResponseEntity<GameDto> createGame(@RequestBody GameDto gameDto) {
     GameDto createdGame = gameService.createGame(gameDto);

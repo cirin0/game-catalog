@@ -29,7 +29,7 @@ public class GameControllerWeb {
   public String show(@PathVariable Long id, Model model) {
     try {
       GameDto game = gameService.getGameById(id);
-      model.addAttribute("game", gameService.getGameById(id));
+      model.addAttribute("game", game);
       model.addAttribute("reviews", reviewService.getReviewsByGameId(id));
       return "games/show";
     } catch (RuntimeException e) {

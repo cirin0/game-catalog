@@ -10,10 +10,12 @@ import java.util.List;
 public interface ReviewMapper {
   Review toEntity(ReviewDto reviewDto);
 
+  @Mapping(target = "gameId", source = "game.id")
+  @Mapping(target = "gameName", source = "game.name")
   ReviewDto toDto(Review review);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Review partialUpdate(ReviewDto reviewDto, @MappingTarget Review review);
-
   List<ReviewDto> toDtoList(List<Review> reviews);
+
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Review
+  partialUpdate(ReviewDto reviewDto, @MappingTarget Review review);
 }
