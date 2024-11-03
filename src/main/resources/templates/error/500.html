@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
-<head>
-	<title>500 - Server Error</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('404 Not Found - Game Catalog')}">
 </head>
 <body>
-	<section class="text-center py-5">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<main class="container my-4 text-center">
+	<div class="py-5">
 		<h1 class="display-1">500</h1>
-		<p class="lead">Помилка сервера</p>
+		<h2 class="lead">Помилка сервера</h2>
+		<p class="lead">Щось пішло не так. Спробуйте оновити сторінку або повернутися пізніше.</p>
 		<a th:href="@{/}" class="btn btn-primary">На головну</a>
-	</section>
+	</div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

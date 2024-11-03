@@ -32,8 +32,6 @@ public class ReviewService {
   }
 
   public List<ReviewDto> getReviewsByGameId(Long gameId) {
-    Review review = reviewRepository.findById(gameId)
-        .orElseThrow(() -> new RuntimeException("Review not found"));
     List<Review> reviews = reviewRepository.findByGameId(gameId);
     return reviewMapper.toDtoList(reviews);
   }

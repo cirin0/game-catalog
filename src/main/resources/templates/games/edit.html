@@ -1,15 +1,14 @@
-<!-- templates/games/new.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('New Game - Game Catalog')}">
+<head th:replace="~{fragments/header :: header('Edit Game - Game Catalog')}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <main class="container my-4">
-	<h1>Add New Game</h1>
+	<h1>Edit Game</h1>
 
-	<form th:action="@{/games}" th:object="${game}" method="post">
+	<form th:action="@{/games/{id}(id=${game.id})}" th:object="${game}" method="post">
 		<div class="mb-3">
 			<label for="name" class="form-label">Title</label>
 			<input type="text" class="form-control" id="name" th:field="*{name}" required>
@@ -38,7 +37,7 @@
 		<div class="mb-3">
 			<label for="category" class="form-label">Category</label>
 			<select class="form-control" id="category" th:field="*{categoryId}">
-				<option value="">Select a category</option>
+				<option value="">Select category</option>
 				<option th:each="category : ${categories}"
 								th:value="${category.id}"
 								th:text="${category.name}">
@@ -46,10 +45,11 @@
 			</select>
 		</div>
 
-		<button type="submit" class="btn btn-primary">Create Game</button>
-		<a href="/games" class="btn btn-outline-secondary">Cancel</a>
+		<button type="submit" class="btn btn-primary">Update Game</button>
+		<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-secondary">Cancel</a>
 	</form>
 </main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

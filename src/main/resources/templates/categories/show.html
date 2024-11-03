@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('Category Details - Game Catalog')}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container my-4">
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="d-flex justify-content-between align-items-start">
+				<div>
+					<h1 class="card-title" th:text="${category.name}">Category Name</h1>
+					<p class="card-text" th:text="${category.description}">Category Description</p>
+				</div>
+				<div class="btn-group">
+					<a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-primary">Edit</a>
+					<form th:action="@{/categories/{id}/delete(id=${category.id})}" method="POST" class="d-inline">
+						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2>Games in this category</h2>
+	<div th:if="${#lists.isEmpty(games)}" class="alert alert-info">
+		No games in this category yet.
+	</div>
+
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="col" th:each="game : ${games}">
+			<div class="card h-100">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
+					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Description</p>
+					<div class="d-flex justify-content-between">
+						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">View Details</a>
+						<form th:action="@{/wishlist/add/{id}(id=${game.id})}" method="POST">
+							<button type="submit" class="btn btn-outline-primary">Add to Wishlist</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
