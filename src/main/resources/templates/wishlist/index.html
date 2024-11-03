@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('Games - Game Catalog')}">
+<head th:replace="~{fragments/header :: header('Wishlist - Game Catalog')}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <main class="container my-4">
-	<div class="d-flex justify-content-between align-items-center mb-4">
-		<h1>Games</h1>
-		<a href="/games/new" class="btn btn-primary">Add New Game</a>
+	<h1>My Wishlist</h1>
+
+	<div th:if="${#lists.isEmpty(wishlist)}" class="alert alert-info">
+		Your wishlist is empty. Browse our <a href="/games">games</a> to add some!
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-3 g-4">
-		<div class="col" th:each="game : ${games}">
+		<div class="col" th:each="game : ${wishlist}">
 			<div class="card h-100">
-				<img th:src="${game.imageUrl}" class="card-img-top" alt="Game Image">
 				<div class="card-body">
 					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
 					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Description</p>
-					<div class="mb-3">
-						<span class="badge bg-primary" th:text="${#numbers.formatDecimal(game.rating, 1, 1)} + '/5.0'">Rating</span>
-					</div>
 					<div class="d-flex justify-content-between">
 						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">View Details</a>
-						<form th:action="@{/wishlist/add/{id}(id=${game.id})}" method="POST" class="d-inline">
-							<button type="submit" class="btn btn-outline-primary">Add to Wishlist</button>
+						<form th:action="@{/wishlist/remove/{id}(id=${game.id})}" method="POST">
+							<button type="submit" class="btn btn-danger">Remove</button>
 						</form>
 					</div>
 				</div>
