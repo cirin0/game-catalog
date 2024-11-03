@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+		<title>404 - Page Not Found</title>
+</head>
+<body>
+	<section class="text-center py-5">
+		<h1 class="display-1">404</h1>
+		<p class="lead">Сторінку не знайдено</p>
+		<a th:href="@{/}" class="btn btn-primary">На головну</a>
+	</section>
+</body>
+</html>

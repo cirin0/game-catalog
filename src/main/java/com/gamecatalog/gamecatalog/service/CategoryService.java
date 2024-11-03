@@ -27,7 +27,7 @@ public class CategoryService {
     return categoryMapper.toDto(category);
   }
 
-  @Transactional
+  //@Transactional
   public CategoryDto createCategory(CategoryDto categoryDto) {
     Category category = categoryMapper.toEntity(categoryDto);
     Category savedCategory = categoryRepository.save(category);

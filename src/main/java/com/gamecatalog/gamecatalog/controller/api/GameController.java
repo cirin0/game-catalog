@@ -1,10 +1,8 @@
-package com.gamecatalog.gamecatalog.controller;
+package com.gamecatalog.gamecatalog.controller.api;
 
 import com.gamecatalog.gamecatalog.model.dto.GameDto;
 import com.gamecatalog.gamecatalog.service.GameService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/game")
+@RequestMapping("api/games")
 @RequiredArgsConstructor
 public class GameController {
   private final GameService gameService;

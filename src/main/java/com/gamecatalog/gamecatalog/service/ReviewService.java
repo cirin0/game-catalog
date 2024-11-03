@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -20,15 +22,22 @@ public class ReviewService {
   private final ReviewMapper reviewMapper;
 
 
-  private Page<ReviewDto> getAllReviews(Pageable pageable) {
-    return reviewRepository.findAll(pageable)
-        .map(reviewMapper::toDto);
+  public List<ReviewDto> getAllReviews() {
+    List<Review> reviews = reviewRepository.findAll();
+    return reviewMapper.toDtoList(reviews);
   }
 
-  private ReviewDto getReviewById(Long id) {
+  public ReviewDto getReviewById(Long id) {
     Review review = reviewRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Review not found"));
     return reviewMapper.toDto(review);
+  }
+
+  public List<ReviewDto> getReviewsByGameId(Long gameId) {
+    Review review = reviewRepository.findById(gameId)
+        .orElseThrow(() -> new RuntimeException("Review not found"));
+    List<Review> reviews = reviewRepository.findByGameId(gameId);
+    return reviewMapper.toDtoList(reviews);
   }
 
   @Transactional
@@ -66,4 +75,5 @@ public class ReviewService {
     game.setRating(averageRating != null ? averageRating : 0.0);
     gameRepository.save(game);
   }
+
 }

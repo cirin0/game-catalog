@@ -10,5 +10,6 @@ public interface WishlistMapper {
 
   WishlistDto toDto(Wishlist wishlist);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Wishlist partialUpdate(WishlistDto wishlistDto, @MappingTarget Wishlist wishlist);
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  Wishlist partialUpdate(WishlistDto wishlistDto, @MappingTarget Wishlist wishlist);
 }
