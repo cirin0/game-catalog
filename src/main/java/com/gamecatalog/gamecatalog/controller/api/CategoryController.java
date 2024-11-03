@@ -1,4 +1,4 @@
-package com.gamecatalog.gamecatalog.controller;
+package com.gamecatalog.gamecatalog.controller.api;
 
 import com.gamecatalog.gamecatalog.model.dto.CategoryDto;
 import com.gamecatalog.gamecatalog.model.dto.GameDto;

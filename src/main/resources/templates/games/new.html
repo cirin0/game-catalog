@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+	<title>Add New Game - Game Catalog</title>
+</head>
+<body>
+<section>
+	<h2 class="mb-4">Add New Game</h2>
+
+	<form th:action="@{/games}" method="POST" class="needs-validation" novalidate>
+		<div class="mb-3">
+			<label for="name" class="form-label">Title</label>
+			<input type="text" class="form-control" id="name" name="name" required>
+			<div class="invalid-feedback">Please provide a game title.</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="description" class="form-label">Description</label>
+			<textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+			<div class="invalid-feedback">Please provide a game description.</div>
+		</div>
+		<div class="mb-3">
+			<label for="releaseYear" class="form-label">Release Year</label>
+			<input type="number" class="form-control" id="releaseYear" name="releaseYear" required>
+			<div class="invalid-feedback">Please provide a valid release year.</div>
+		</div>
+		<div class="mb-3">
+			<label for="developer" class="form-label">Developer</label>
+			<input type="text" class="form-control" id="developer" name="developer" required>
+			<div class="invalid-feedback">Please provide a developer name.</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="imageUrl" class="form-label">Image URL</label>
+			<input type="url" class="form-control" id="imageUrl" name="imageUrl" required>
+			<div class="invalid-feedback">Please provide a valid image URL.</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="categoryId" class="form-label">Category</label>
+			<select class="form-select" id="categoryId" name="categoryId" required>
+				<option value="">Select a category</option>
+				<option th:each="category : ${categories}"
+								th:value="${category.id}"
+								th:text="${category.name}">Category Name</option>
+			</select>
+			<div class="invalid-feedback">Please select a category.</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Create Game</button>
+		<a href="/games" class="btn btn-outline-secondary">Cancel</a>
+	</form>
+</section>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+	<title>Games - Game Catalog</title>
+</head>
+<body>
+<section>
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h2>Games</h2>
+		<a href="/games/new" class="btn btn-primary">Add New Game</a>
+	</div>
+
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="col" th:each="game : ${games}">
+			<div class="card h-100">
+				<img th:src="${game.imageUrl}" class="card-img-top" alt="Game Image">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
+					<p class="card-text" th:text="${#strings.abbreviate(game.description, 150)}">Description</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<span class="badge bg-primary" th:text="${game.categoryName}">Category</span>
+						<div class="text-warning">
+							<i class="bi bi-star-fill"></i>
+							<span th:text="${#numbers.formatDecimal(game.rating, 1, 1)}">4.5</span>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="btn-group w-100">
+						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-outline-primary">Details</a>
+						<a th:href="@{/wishlist/add/{id}(id=${game.id})}" class="btn btn-outline-secondary">
+							<i class="bi bi-heart"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
