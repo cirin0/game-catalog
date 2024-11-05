@@ -8,30 +8,31 @@
 <main class="container my-4">
   <div class="card mb-4">
     <div class="card-body">
-      <div class="d-flex justify-content-between align-items-start">
+      <div class="d-flex justify-content-around align-items-start">
+        <img th:src="${game.imageUrl}" class="img-fluid rounded" alt="Game Image" style="max-width: 350px;">
         <div>
-          <h1 class="card-title" th:text="${game.name}">Game Title</h1>
+          <h1 class="card-title" th:text="${game.name}">Назва</h1>
           <div class="text-muted">
-            <p>Category: <span th:text="${game.categoryName}"></span></p>
-            <p>Developer: <span th:text="${game.developer}"></span></p>
-            <p>Release Year: <span th:text="${game.releaseYear}"></span></p>
-            <p>Rating: <span th:text="${#numbers.formatDecimal(game.rating, 1, 1)}"></span> / 5.0</p>
+            <p>Категорія: <span th:text="${game.categoryName}"></span></p>
+            <p>Розробник: <span th:text="${game.developer}"></span></p>
+            <p>Дата виходу: <span th:text="${game.releaseYear}"></span></p>
+            <p>Рейтинг: <span th:text="${#numbers.formatDecimal(game.rating, 1, 1)}"></span> / 5.0</p>
           </div>
         </div>
         <div class="btn-group">
-          <a th:href="@{/games/{id}/edit(id=${game.id})}" class="btn btn-primary">Edit</a>
+          <a th:href="@{/games/{id}/edit(id=${game.id})}" class="btn btn-primary">Редагувати</a>
           <form th:action="@{/games/{id}/delete(id=${game.id})}" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Видалити</button>
           </form>
         </div>
       </div>
-      <p class="card-text" th:text="${game.description}">Description</p>
+      <p class="card-text" th:text="${game.description}">Опис</p>
     </div>
   </div>
 
   <div class="card mb-4">
     <div class="card-body">
-      <h3>Reviews</h3>
+      <h3>Відгуки</h3>
       <div th:each="review : ${reviews}" class="mb-3 border-bottom pb-3">
         <div class="d-flex justify-content-between align-items-start">
           <div>
@@ -46,14 +47,14 @@
 
       <form th:action="@{/games/{id}/reviews(id=${game.id})}" method="POST" class="mt-4" th:object="${reviews}">
         <div class="mb-3">
-          <label for="content" class="form-label">Your Review</label>
+          <label for="content" class="form-label">Ваша рецензія</label>
           <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
         </div>
         <div class="mb-3">
-          <label for="rating" class="form-label">Rating</label>
+          <label for="rating" class="form-label">Рейтинг від 1 до 5</label>
           <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit Review</button>
+        <button type="submit" class="btn btn-primary">Надіслати відгук</button>
       </form>
     </div>
   </div>

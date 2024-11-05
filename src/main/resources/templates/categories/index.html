@@ -8,21 +8,21 @@
 <main class="container my-4">
 	<div class="d-flex justify-content-between align-items-center mb-4">
 		<h1>Categories</h1>
-		<a href="/categories/new" class="btn btn-primary">Add New Category</a>
+		<a href="/categories/new" class="btn btn-primary">Додати нову категорію</a>
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div class="col" th:each="category : ${categories}">
 			<div class="card h-100">
 				<div class="card-body">
-					<h5 class="card-title" th:text="${category.name}">Category Name</h5>
-					<p class="card-text" th:text="${category.description}">Description</p>
+					<h5 class="card-title" th:text="${category.name}">Назва категорії</h5>
+					<p class="card-text" th:text="${category.description}">Опис</p>
 					<div class="d-flex justify-content-between">
-						<a th:href="@{/categories/{id}(id=${category.id})}" class="btn btn-primary">View Games</a>
+						<a th:href="@{/categories/{id}(id=${category.id})}" class="btn btn-primary">Переглянути ігри</a>
 						<div class="btn-group">
-							<a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-secondary">Edit</a>
+							<a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-secondary">Редагувати</a>
 							<form th:action="@{/categories/{id}/delete(id=${category.id})}" method="POST" class="d-inline">
-								<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+								<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Видалити</button>
 							</form>
 						</div>
 					</div>

@@ -6,36 +6,36 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <main class="container my-4">
-	<h1>Edit Game</h1>
+	<h1>Редагування гри</h1>
 
 	<form th:action="@{/games/{id}(id=${game.id})}" th:object="${game}" method="post">
 		<div class="mb-3">
-			<label for="name" class="form-label">Title</label>
+			<label for="name" class="form-label">Назва</label>
 			<input type="text" class="form-control" id="name" th:field="*{name}" required>
 		</div>
 
 		<div class="mb-3">
-			<label for="description" class="form-label">Description</label>
+			<label for="description" class="form-label">Опис</label>
 			<textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
 		</div>
 
 		<div class="mb-3">
-			<label for="releaseYear" class="form-label">Release Year</label>
+			<label for="releaseYear" class="form-label">Дата виходу</label>
 			<input type="number" class="form-control" id="releaseYear" th:field="*{releaseYear}">
 		</div>
 
 		<div class="mb-3">
-			<label for="developer" class="form-label">Developer</label>
+			<label for="developer" class="form-label">Розробник</label>
 			<input type="text" class="form-control" id="developer" th:field="*{developer}">
 		</div>
 
 		<div class="mb-3">
-			<label for="imageUrl" class="form-label">Image URL</label>
+			<label for="imageUrl" class="form-label">Посилання на зображення гри</label>
 			<input type="url" class="form-control" id="imageUrl" th:field="*{imageUrl}">
 		</div>
 
 		<div class="mb-3">
-			<label for="category" class="form-label">Category</label>
+			<label for="category" class="form-label">Категорія гри</label>
 			<select class="form-control" id="category" th:field="*{categoryId}">
 				<option value="">Select category</option>
 				<option th:each="category : ${categories}"
@@ -45,8 +45,8 @@
 			</select>
 		</div>
 
-		<button type="submit" class="btn btn-primary">Update Game</button>
-		<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-secondary">Cancel</a>
+		<button type="submit" class="btn btn-primary">Оновити гру</button>
+		<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-secondary">Відмінити</a>
 	</form>
 </main>
 

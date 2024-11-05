@@ -7,24 +7,24 @@
 
 <main class="container my-4">
 	<div class="d-flex justify-content-between align-items-center mb-4">
-		<h1>Games</h1>
-		<a href="/games/new" class="btn btn-primary">Add New Game</a>
+		<h1>Ігри</h1>
+		<a href="/games/new" class="btn btn-primary">Додати нову гру</a>
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div class="col" th:each="game : ${games}">
 			<div class="card h-100">
-				<img th:src="${game.imageUrl}" class="card-img-top" alt="Game Image">
+				<img style="object-fit: cover; height: 240px" th:src="${game.imageUrl}" class="card-img-top" alt="Game Image">
 				<div class="card-body">
-					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
-					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Description</p>
+					<h5 class="card-title" th:text="${game.name}">Назва гри</h5>
+					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Опис</p>
 					<div class="mb-3">
-						<span class="badge bg-primary" th:text="${#numbers.formatDecimal(game.rating, 1, 1)} + '/5.0'">Rating</span>
+						<span class="badge bg-primary" th:text="${#numbers.formatDecimal(game.rating, 1, 1)} + '/5.0'">Рейтинг</span>
 					</div>
 					<div class="d-flex justify-content-between">
-						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">View Details</a>
+						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">Детальніше</a>
 						<form th:action="@{/wishlist/add/{id}(id=${game.id})}" method="POST" class="d-inline">
-							<button type="submit" class="btn btn-outline-primary">Add to Wishlist</button>
+							<button type="submit" class="btn btn-outline-primary">Додати до списку бажаного</button>
 						</form>
 					</div>
 				</div>

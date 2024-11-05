@@ -10,15 +10,15 @@
 
   <form th:action="@{/categories/{id}(id=${category.id})}" method="POST">
     <div class="mb-3">
-      <label for="name" class="form-label">Name</label>
+      <label for="name" class="form-label">Назва категорії</label>
       <input type="text" class="form-control" id="name" name="name" th:value="${category.name}" required>
     </div>
     <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
+      <label for="description" class="form-label">Опис</label>
       <textarea class="form-control" id="description" name="description" rows="3" required th:text="${category.description}"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Update Category</button>
-    <a th:href="@{/categories/{id}(id=${category.id})}" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Оновити категорію</button>
+    <a th:href="@{/categories/{id}(id=${category.id})}" class="btn btn-secondary">Скасувати</a>
   </form>
 </main>
 

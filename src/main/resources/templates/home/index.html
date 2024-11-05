@@ -6,14 +6,14 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <main class="container my-4">
-	<h1>Welcome to Game Catalog</h1>
+	<h1>Каталог ігор</h1>
 	<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
 		<div class="col" th:each="game : ${games}">
 			<div class="card h-100">
 				<div class="card-body">
 					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
-					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Description</p>
-					<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">View Details</a>
+					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Опис</p>
+					<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">Детальніше</a>
 				</div>
 			</div>
 		</div>

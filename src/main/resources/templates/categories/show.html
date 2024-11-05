@@ -10,34 +10,34 @@
 		<div class="card-body">
 			<div class="d-flex justify-content-between align-items-start">
 				<div>
-					<h1 class="card-title" th:text="${category.name}">Category Name</h1>
-					<p class="card-text" th:text="${category.description}">Category Description</p>
+					<h1 class="card-title" th:text="${category.name}">Назва категорії</h1>
+					<p class="card-text" th:text="${category.description}">Опис категорії</p>
 				</div>
 				<div class="btn-group">
-					<a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-primary">Edit</a>
+					<a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-primary">Редагувати</a>
 					<form th:action="@{/categories/{id}/delete(id=${category.id})}" method="POST" class="d-inline">
-						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Видалити</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<h2>Games in this category</h2>
+	<h2>Ігри в цій категорії</h2>
 	<div th:if="${#lists.isEmpty(games)}" class="alert alert-info">
-		No games in this category yet.
+		У цій категорії ще немає ігор.
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div class="col" th:each="game : ${games}">
 			<div class="card h-100">
 				<div class="card-body">
-					<h5 class="card-title" th:text="${game.name}">Game Title</h5>
-					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Description</p>
+					<h5 class="card-title" th:text="${game.name}">Назва</h5>
+					<p class="card-text" th:text="${#strings.abbreviate(game.description, 100)}">Опис</p>
 					<div class="d-flex justify-content-between">
-						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">View Details</a>
+						<a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary">Детальніше</a>
 						<form th:action="@{/wishlist/add/{id}(id=${game.id})}" method="POST">
-							<button type="submit" class="btn btn-outline-primary">Add to Wishlist</button>
+							<button type="submit" class="btn btn-outline-primary">Додати до списку бажаного</button>
 						</form>
 					</div>
 				</div>
