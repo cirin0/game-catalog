@@ -16,6 +16,11 @@ import java.util.Optional;
 public class ReviewController {
   private final ReviewService reviewService;
 
+  @GetMapping
+  public ResponseEntity<List<ReviewDto>> getAllReviews() {
+    return ResponseEntity.ok(reviewService.getAllReviews());
+  }
+
   @GetMapping("/games/{gameId}")
   public ResponseEntity<List<ReviewDto>> getReviewsByGameId(@PathVariable Long gameId) {
     return ResponseEntity.ok(reviewService.getReviewsByGameId(gameId));
