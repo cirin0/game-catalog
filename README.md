@@ -56,4 +56,4 @@ Store Components — Цей проект є веб-додатком для пе�
   - `GET /api/wishlist` – переглянути ігри у списку бажань
  
 ## ERD-діаграма
-![ER-diagram](https://github.com/cirin0/game-catalog/blob/main/ER%20diagram.png)
+![ER-diagram](https://github.com/cirin0/game-catalog/blob/main/ER-diagram.png)
