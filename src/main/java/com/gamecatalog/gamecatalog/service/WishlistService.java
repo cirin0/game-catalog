@@ -6,7 +6,6 @@ import com.gamecatalog.gamecatalog.model.entity.Game;
 import com.gamecatalog.gamecatalog.model.entity.Wishlist;
 import com.gamecatalog.gamecatalog.repository.GameRepository;
 import com.gamecatalog.gamecatalog.repository.WishlistRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class WishlistService {
         .collect(Collectors.toList());
   }
 
-  @Transactional
   public void addGameToWishlist(Long gameId) {
     if (wishlistRepository.existsByGameId(gameId)) {
       throw new RuntimeException("Game already in wishlist");
@@ -41,7 +39,6 @@ public class WishlistService {
     wishlistRepository.save(wishlistItem);
   }
 
-  @Transactional
   public void removeGameFromWishlist(Long gameId) {
     Wishlist wishlistItem = wishlistRepository.findByGameId(gameId);
     wishlistRepository.delete(wishlistItem);

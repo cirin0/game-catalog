@@ -6,7 +6,6 @@ import com.gamecatalog.gamecatalog.model.entity.Game;
 import com.gamecatalog.gamecatalog.model.entity.Review;
 import com.gamecatalog.gamecatalog.repository.GameRepository;
 import com.gamecatalog.gamecatalog.repository.ReviewRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ public class ReviewService {
   private final ReviewRepository reviewRepository;
   private final GameRepository gameRepository;
   private final ReviewMapper reviewMapper;
-
 
   public List<ReviewDto> getAllReviews() {
     List<Review> reviews = reviewRepository.findAll();
@@ -36,7 +34,6 @@ public class ReviewService {
     return reviewMapper.toDtoList(reviews);
   }
 
-  @Transactional
   public ReviewDto createReview(Long gameId, ReviewDto reviewDto) {
     Game game = gameRepository.findById(gameId)
         .orElseThrow(() -> new RuntimeException("Game not found"));
@@ -47,7 +44,6 @@ public class ReviewService {
     return reviewMapper.toDto(savedReview);
   }
 
-  @Transactional
   public ReviewDto updateReview(Long id, ReviewDto reviewDto) {
     Review review = reviewRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Review not found"));
@@ -57,7 +53,6 @@ public class ReviewService {
     return reviewMapper.toDto(savedReview);
   }
 
-  @Transactional
   public void deleteReview(Long id) {
     Review review = reviewRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Review not found"));

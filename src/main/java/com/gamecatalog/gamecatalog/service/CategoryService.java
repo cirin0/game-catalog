@@ -4,7 +4,6 @@ import com.gamecatalog.gamecatalog.mapper.CategoryMapper;
 import com.gamecatalog.gamecatalog.model.dto.CategoryDto;
 import com.gamecatalog.gamecatalog.model.entity.Category;
 import com.gamecatalog.gamecatalog.repository.CategoryRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +26,12 @@ public class CategoryService {
     return categoryMapper.toDto(category);
   }
 
-  @Transactional
   public CategoryDto createCategory(CategoryDto categoryDto) {
     Category category = categoryMapper.toEntity(categoryDto);
     Category savedCategory = categoryRepository.save(category);
     return categoryMapper.toDto(savedCategory);
   }
 
-  @Transactional
   public CategoryDto updateCategory(Long id, CategoryDto categoryDto) {
     Category category = categoryRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -42,7 +39,6 @@ public class CategoryService {
     return categoryMapper.toDto(categoryRepository.save(updatedCategory));
   }
 
-  @Transactional
   public void deleteCategory(Long id) {
     categoryRepository.deleteById(id);
   }

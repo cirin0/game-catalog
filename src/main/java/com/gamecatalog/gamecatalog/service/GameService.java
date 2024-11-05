@@ -1,10 +1,11 @@
 package com.gamecatalog.gamecatalog.service;
 
 import com.gamecatalog.gamecatalog.mapper.GameMapper;
+import com.gamecatalog.gamecatalog.model.dto.CategoryDto;
 import com.gamecatalog.gamecatalog.model.dto.GameDto;
+import com.gamecatalog.gamecatalog.model.entity.Category;
 import com.gamecatalog.gamecatalog.model.entity.Game;
 import com.gamecatalog.gamecatalog.repository.GameRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,22 +34,31 @@ public class GameService {
     return gameMapper.toDtoList(games);
   }
 
-  @Transactional
   public GameDto createGame(GameDto gameDto) {
+    CategoryDto category = categoryService.getCategoryById(gameDto.getCategoryId());
     Game game = gameMapper.toEntity(gameDto);
+    game.setCategory(Category.builder()
+        .id(category.getId())
+        .name(category.getName())
+        .description(category.getDescription())
+        .build());
     Game savedGame = gameRepository.save(game);
     return gameMapper.toDto(savedGame);
   }
 
-  @Transactional
   public GameDto updateGame(Long id, GameDto gameDto) {
     Game game = gameRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Game not found"));
+    CategoryDto category = categoryService.getCategoryById(gameDto.getCategoryId());
     Game updatedGame = gameMapper.partialUpdate(gameDto, game);
+    game.setCategory(Category.builder()
+        .id(category.getId())
+        .name(category.getName())
+        .description(category.getDescription())
+        .build());
     return gameMapper.toDto(gameRepository.save(updatedGame));
   }
 
-  @Transactional
   public void deleteGame(Long id) {
     gameRepository.deleteById(id);
   }
